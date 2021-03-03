@@ -1,8 +1,8 @@
 {
   "url": "https://investors.kempharm.com/investor-overview",
   "updateInterval": 5000,
-  "monthToSearch": "Mar",
-  "upperThreshold": 10.0,
-  "lowerThreshold": 9.0,
-  "numbersToSend": ["+16474037374", "+16472877374"]
+  "monthToSearch": "March 3",
+  "upperThreshold": 18.0,
+  "lowerThreshold": 16.0,
+  "numbersToSend": []
 }
