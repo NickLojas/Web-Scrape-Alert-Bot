@@ -8,6 +8,8 @@ const {
   upperThreshold,
   lowerThreshold,
   numbersToSend,
+  newsCheck,
+  priceCheck,
 } = require("./properties.json");
 
 const accountSid = "ACfb3cb516e6ca868f1d9c831ca7450918";
@@ -35,8 +37,8 @@ async function scrapeContent() {
     data = [];
     const $ = cheerio.load(html);
 
-    checkForNews($);
-    checkForLargePriceChanges($);
+    newsCheck && checkForNews($);
+    priceCheck && checkForLargePriceChanges($);
   };
 }
 
@@ -68,14 +70,14 @@ function checkForNews($) {
 
 function checkForLargePriceChanges($) {
   const price = $(".quote-price").text();
-  if (parseFloat(price) > upperThreshold) {
+  if (parseFloat(price.slice(1)) > upperThreshold) {
     if (!surpassThreshold.upper) {
       opn.open(url);
       console.log("PRICE INCREASE");
       surpassThreshold.upper = true;
     }
   }
-  if (parseFloat(price) < lowerThreshold) {
+  if (parseFloat(price.slice(1)) < lowerThreshold) {
     if (!surpassThreshold.lower) {
       opn.open(url);
       console.log("PRICE DECREASE");
