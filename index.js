@@ -11,7 +11,7 @@ const {
 } = require("./properties.json");
 
 const accountSid = "ACfb3cb516e6ca868f1d9c831ca7450918";
-const authToken = "6220bed6f9d361915888fa763b69f374";
+const authToken = "a0c34af0fe88ba31b7fb25a6cff37af9";
 const client = require("twilio")(accountSid, authToken);
 
 let newsCounter = 0;
@@ -52,8 +52,7 @@ function checkForNews($) {
           client.messages
             .create({
               from: "+15632783509",
-              body:
-                "CHECK KMPH WEBSITE FOR NEW NEWS - https://investors.kempharm.com/investor-overview",
+              body: `CHECK KMPH WEBSITE FOR NEW NEWS - ${url}`,
               to: number,
             })
             .then((message) => console.log(message.status))
@@ -70,15 +69,15 @@ function checkForNews($) {
 function checkForLargePriceChanges($) {
   const price = $(".quote-price").text();
   if (parseFloat(price) > upperThreshold) {
-    opn.open(url);
     if (!surpassThreshold.upper) {
+      opn.open(url);
       console.log("PRICE INCREASE");
       surpassThreshold.upper = true;
     }
   }
   if (parseFloat(price) < lowerThreshold) {
-    opn.open(url);
     if (!surpassThreshold.lower) {
+      opn.open(url);
       console.log("PRICE DECREASE");
       surpassThreshold.lower = true;
     }
