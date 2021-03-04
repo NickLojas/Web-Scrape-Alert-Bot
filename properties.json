@@ -1,10 +1,15 @@
 {
   "url": "https://investors.kempharm.com/investor-overview",
   "updateInterval": 5000,
-  "monthToSearch": "March 3",
-  "upperThreshold": 15.0,
-  "lowerThreshold": 13.0,
-  "numbersToSend": ["+16474037374", "+16472877374"],
+  "monthToSearch": "March 4",
+  "upperThreshold": 15,
+  "lowerThreshold": 9,
   "newsCheck": true,
-  "priceCheck": true
+  "priceCheck": true,
+  "twilio": {
+    "accountSid": "",
+    "authToken": "",
+    "receiverNumbers": [],
+    "senderNumber": ""
+  }
 }
