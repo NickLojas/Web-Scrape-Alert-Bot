@@ -7,19 +7,17 @@ const {
   monthToSearch,
   upperThreshold,
   lowerThreshold,
-  numbersToSend,
   newsCheck,
   priceCheck,
+  twilio: { accountSid, authToken, receiverNumbers, senderNumber },
 } = require("./properties.json");
 
-const accountSid = "ACfb3cb516e6ca868f1d9c831ca7450918";
-const authToken = "a0c34af0fe88ba31b7fb25a6cff37af9";
 const client = require("twilio")(accountSid, authToken);
 
 let newsCounter = 0;
 let surpassThreshold = { upper: false, lower: false };
 
-console.log("\n__Starting KMPH alert bot__");
+console.log("\n__Started KMPH alert bot__");
 
 const repeater = setInterval(() => scrapeContent(), updateInterval);
 
@@ -50,16 +48,17 @@ function checkForNews($) {
       // open the page in the browser if not yet opened
       if (newsCounter != 1) {
         opn.open(url);
-        numbersToSend.forEach((number) => {
-          client.messages
-            .create({
-              from: "+15632783509",
-              body: `CHECK KMPH WEBSITE FOR NEW NEWS - ${url}`,
-              to: number,
-            })
-            .then((message) => console.log(message.status))
-            .done();
-        });
+        receiverNumbers,
+          senderNumber.forEach((number) => {
+            client.messages
+              .create({
+                from: senderNumber,
+                body: `CHECK KMPH WEBSITE FOR NEW NEWS - ${url}`,
+                to: number,
+              })
+              .then((message) => console.log(message.status))
+              .done();
+          });
         newsCounter = 1;
       }
       console.log("CHECK WEBSITE FOR NEW NEWS");
